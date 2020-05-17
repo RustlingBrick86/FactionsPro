@@ -171,10 +171,11 @@ class FactionCommands {
                 } else {
                     $factionName = $args[1];
                     $rank = "Leader";
-                    $stmt = $this->plugin->db->prepare("INSERT OR REPLACE INTO master (player, faction, rank) VALUES (:player, :faction, :rank);");
+                    $stmt = $this->plugin->db->prepare("INSERT OR REPLACE INTO master (player, faction, rank, power) VALUES (:player, :faction, :rank, :power);");
                     $stmt->bindValue(":player", $playerName);
                     $stmt->bindValue(":faction", $factionName);
                     $stmt->bindValue(":rank", $rank);
+                    $stmt->bindValue(":power", $factionpower);
                     $result = $stmt->execute();
                     $this->plugin->updateAllies($factionName);
                     $this->plugin->setFactionPower($factionName, $this->plugin->prefs->get("TheDefaultPowerEveryFactionStartsWith"));
